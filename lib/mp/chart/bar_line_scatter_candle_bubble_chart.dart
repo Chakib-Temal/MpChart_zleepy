@@ -83,8 +83,8 @@ class BarLineScatterCandleBubbleState<T extends BarLineScatterCandleBubbleChart>
         details.localPosition.dy,
       );
 
-      widget.controller.painter.selectedValue(high);
-      
+      if (high != null) widget.controller.painter.selectedValue(high);
+
       lastHighlighted = null;
     }
     if (widget.controller.touchEventListener != null) {
@@ -251,7 +251,7 @@ class BarLineScatterCandleBubbleState<T extends BarLineScatterCandleBubbleChart>
     var needStateIfNotDispose = false;
     var pinchZoomEnabled = widget.controller.pinchZoomEnabled;
 
-    if(!_isScaleDirectionConfirm){
+    if (!_isScaleDirectionConfirm) {
       _isScaleDirectionConfirm = true;
       _isYDirection = details.mainDirection == Direction.Y;
     }
@@ -259,7 +259,8 @@ class BarLineScatterCandleBubbleState<T extends BarLineScatterCandleBubbleChart>
       if (pinchZoomEnabled) {
         _scale = details.scale;
       } else {
-        _scale = _isYDirection ? details.verticalScale : details.horizontalScale;
+        _scale =
+            _isYDirection ? details.verticalScale : details.horizontalScale;
       }
       return;
     }
@@ -309,11 +310,10 @@ class BarLineScatterCandleBubbleState<T extends BarLineScatterCandleBubbleChart>
           details.globalFocalPoint.dy,
           details.localFocalPoint.dx,
           details.localFocalPoint.dy);
-      widget.controller.touchEventListener
-          .onScaleUpdate(point.x, point.y);
+      widget.controller.touchEventListener.onScaleUpdate(point.x, point.y);
     }
 
-    if(needStateIfNotDispose){
+    if (needStateIfNotDispose) {
       setStateIfNotDispose();
     }
 
